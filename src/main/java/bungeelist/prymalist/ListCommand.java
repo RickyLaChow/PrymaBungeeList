@@ -20,24 +20,13 @@ public class ListCommand extends Command {
 
     @Override
     public void execute(CommandSender sender, String[] args) {
-
-
-		Map<String, ServerInfo> test = ProxyServer.getInstance().getServersCopy();
-
-             ProxyServer.getInstance().getConsole().sendMessage("Array:" + test);
-             ProxyServer.getInstance().broadcast(String.valueOf
-                     (ProxyServer.getInstance().getPlayers()));
-             ProxyServer.getInstance().broadcast(String.valueOf
-                (ProxyServer.getInstance().getPlayers().size()));
-             ProxyServer.getInstance().broadcast(String.valueOf
-                     (ProxyServer.getInstance().getServerInfo("dev").getPlayers()));
-		ProxyServer.getInstance().broadcast(String.valueOf
-			(ProxyServer.getInstance().getServerInfo("dev").getName()));
-
-             ProxyServer.getInstance().broadcast(String.valueOf
-                ((long) ProxyServer.getInstance().getServerInfo("dev").getPlayers().size()));;
-
-
-
+            String[] Culetto = ProxyServer.getInstance().getServersCopy().keySet().toArray(new String[0]);
+            System.out.println("Informazioni giocatori servers:");
+             for (int i = 0; i < ProxyServer.getInstance().getServersCopy().keySet().size(); i++) {
+                System.out.println(Culetto[i] + ": " +
+                        String.valueOf(ProxyServer.getInstance().getServerInfo(Culetto[i]).getPlayers().size()));
+                System.out.println("Lista Giocatori " + Culetto[i] + " " +
+                        String.valueOf(ProxyServer.getInstance().getServerInfo(Culetto[i]).getPlayers()));
+             }
     }
 }
