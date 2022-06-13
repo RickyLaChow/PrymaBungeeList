@@ -1,3 +1,4 @@
 name: PrymaBungeeList
 version: '${project.version}'
 main: bungeelist.prymalist.Prymalist
+author: Rickylachow
