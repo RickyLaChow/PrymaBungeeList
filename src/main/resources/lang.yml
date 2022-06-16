@@ -1,0 +1,9 @@
+#
+# PrymaBungeeList plugin developed by Rickylachow
+#
+# Information of every servers
+version: 0.1
+
+info-server:  "Informazioni servers:"
+total-players: "Giocatori totali:"
+player-list: "Lista giocatori:"
