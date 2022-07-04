@@ -4,6 +4,8 @@
 # Information of every servers
 version: 0.1
 
+only-console: "false"
+permission: "Non hai il permesso per fare questo comando (bungee)"
 info-server:  "Informazioni servers:"
 total-players: "Giocatori totali:"
-player-list: "Lista giocatori:"
+status: "Stato: "
