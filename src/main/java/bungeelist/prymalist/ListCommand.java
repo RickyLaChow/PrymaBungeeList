@@ -34,19 +34,36 @@ public class ListCommand extends Command {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        String[] Servers = ProxyServer.getInstance().getServersCopy().keySet().toArray(new String[0]);
         if (!(sender instanceof ProxiedPlayer)) {
-            String[] Servers = ProxyServer.getInstance().getServersCopy().keySet().toArray(new String[0]);
             System.out.println(ChatColor.GREEN + "" + configuration.get("info-server"));
             for (int i = 0; i < ProxyServer.getInstance().getServersCopy().keySet().size(); i++){
+                System.out.println(" ");
                 System.out.println( ChatColor.AQUA + "" + Servers[i] + ": " +
-                        String.valueOf(ProxyServer.getInstance().getServerInfo(Servers[i]).getPlayers().size() + " \n Stato: " +
+                        String.valueOf(ProxyServer.getInstance().getServerInfo(Servers[i]).getPlayers().size() + " \n" + configuration.get("status") +
                                 String.valueOf(isReachable((InetSocketAddress) ProxyServer.getInstance().getServerInfo(Servers[i]).getSocketAddress(), 500))));
-                System.out.println(configuration.get("player-list") + "(" + Servers[i] + ") \n" + ChatColor.DARK_AQUA +
-                        String.valueOf(ProxyServer.getInstance().getServerInfo(Servers[i]).getPlayers()));
+                System.out.println(ChatColor.DARK_AQUA + String.valueOf(ProxyServer.getInstance().getServerInfo(Servers[i]).getPlayers()));
             }
 
             System.out.println(ChatColor.YELLOW + "" + configuration.get("total-players") + " " + ProxyServer.getInstance().getOnlineCount());
+        }
+        else {
+            if (configuration.get("only-console") == "false") {
+                ProxiedPlayer player = (ProxiedPlayer) sender;
+                if (player.hasPermission("prymabungee.list")) {
+                    player.sendMessage(ChatColor.GREEN + "" + configuration.get("info-server"));
+                    for (int i = 0; i < ProxyServer.getInstance().getServersCopy().keySet().size(); i++) {
+                        player.sendMessage(" ");
+                        player.sendMessage(ChatColor.AQUA + "" + Servers[i] + ": " +
+                                String.valueOf(ProxyServer.getInstance().getServerInfo(Servers[i]).getPlayers().size() +  " \n" + configuration.get("status") +
+                                        String.valueOf(isReachable((InetSocketAddress) ProxyServer.getInstance().getServerInfo(Servers[i]).getSocketAddress(), 500))));
+                        player.sendMessage(ChatColor.DARK_AQUA + String.valueOf(ProxyServer.getInstance().getServerInfo(Servers[i]).getPlayers()));
+
+                    }
+                } else {
+                    player.sendMessage(ChatColor.RED + "" + configuration.get("permission"));
+                }
+            }
         }
     }
 
@@ -55,9 +72,9 @@ public class ListCommand extends Command {
         try {
             socket.connect(address, pingTimeout);
             socket.close();
-            return true;
+            return (ChatColor.GREEN + "online");
         } catch(IOException ignored) {
         }
-        return false;
+        return (ChatColor.RED + "offline");
     }
 }
