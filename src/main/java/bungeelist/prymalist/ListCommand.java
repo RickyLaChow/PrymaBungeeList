@@ -48,9 +48,7 @@ public class ListCommand extends Command {
         }
         else {
             if (configuration.get("only-console").equals("false")) {
-                System.out.println(ChatColor.GREEN + "Comando attivo per i player");
                 ProxiedPlayer player = (ProxiedPlayer) sender;
-                player.sendMessage("culo");
                 if (player.hasPermission("prymabungee.list")) {
                     player.sendMessage(ChatColor.GREEN + "" + configuration.get("info-server"));
                     for (int i = 0; i < ProxyServer.getInstance().getServersCopy().keySet().size(); i++) {
